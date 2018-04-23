@@ -1,16 +1,16 @@
-# oauth
-[Source code of released version](https://github.com/meteor/meteor/tree/master/packages/oauth) | [Source code of development version](https://github.com/meteor/meteor/tree/devel/packages/oauth)
-***
+# clinical:oauth  
 
-Common functionality for OAuth clients. See the [project
-page](https://www.meteor.com/accounts) on Meteor Accounts for more
-details.  
-
-Clinical Meteor supports a custom version of this package because of the need to support advanced OAuth functionality for:  
+Clinical Meteor supports a custom version of the `meteor:oauth` package because of the need to support advanced OAuth functionality for:  
 
 - HIPAA Compliance  
 - Fast Healthcare Interoperability Resources  
 - HEART on FHIR Profiles  
 - Blockchain  
 
-And other applications.  
+And other applications.  Please see the [clinical:hl7-argonaut-fhir](https://github.com/clinical-meteor/hl7-argonaut-fhir) project for more details.  
+
+==============================
+#### OAuth Sequence Diagram  
+
+![FHIR Server Documentation](https://raw.githubusercontent.com/prime-8-consulting/meteor-oauth2/master/documentation/OAuthWebSequenceWithConfig.png)  
+
