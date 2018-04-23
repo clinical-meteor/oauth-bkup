@@ -7,9 +7,10 @@ Clinical Meteor supports a custom version of the `meteor:oauth` package because 
 - HEART on FHIR Profiles  
 - Blockchain  
 
-And other applications.  Please see the [clinical:hl7-argonaut-fhir](https://github.com/clinical-meteor/hl7-argonaut-fhir) project for more details.  
+Please see the [clinical:hl7-argonaut-fhir](https://github.com/clinical-meteor/hl7-argonaut-fhir) project for more details.  
 
-==============================
+
+-----------------------------------------------
 #### OAuth Sequence Diagram  
 
 ![FHIR Server Documentation](https://raw.githubusercontent.com/prime-8-consulting/meteor-oauth2/master/documentation/OAuthWebSequenceWithConfig.png)  
