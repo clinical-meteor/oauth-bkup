@@ -6,22 +6,25 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.use('check');
-  api.use('underscore');
+  api.use('check@1.2.5');
+  api.use('underscore@1.0.10');
 
-  api.use('routepolicy', 'server');
-  api.use('webapp', 'server');
-  api.use('mongo', 'server');
+  api.use('routepolicy@1.0.12', 'server');
+  api.use('webapp@1.4.0', 'server');
+  api.use('mongo@1.3.1', 'server');
 
-  api.use('reload', 'client');
-  api.use('base64', 'client');
+  api.use('reload@1.1.11', 'client');
+  api.use('base64@1.0.10', 'client');
 
-  api.use(['service-configuration', 'logging'], 'server');
+  api.use([
+    'service-configuration@1.0.11', 
+    'logging@1.1.19'
+  ], 'server');
 
-  api.use('oauth-encryption', 'server', {weak: true});
+  api.use('oauth-encryption@1.3.0', 'server', {weak: true});
 
-  api.use('localstorage');
-  api.use('url');
+  api.use('localstorage@1.2.0');
+  api.use('url@1.1.0');
 
   api.export('OAuth');
   api.export('OAuthTest', 'server', {testOnly: true});
