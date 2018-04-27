@@ -1,7 +1,7 @@
 Package.describe({
   name: 'clinical:oauth',
   summary: "Common code for OAuth-based services in the clinical setting.",
-  version: "1.2.5",
+  version: "1.2.6",
   git: 'https://github.com/clinical-meteor/oauth'
 });
 
