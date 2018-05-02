@@ -30,7 +30,7 @@ OAuth._requestHandlers = {};
 //     - `null` if the user declined to give permissions
 //
 OAuth.registerService = function (name, version, urls, handleOauthRequest) {
-  console.log('OAuth.registerService()');
+  process.env.TRACE && console.log('OAuth.registerService()');
 
   if (registeredServices[name]) 
     throw new Error("Already registered the " + name + " OAuth service");
@@ -42,7 +42,7 @@ OAuth.registerService = function (name, version, urls, handleOauthRequest) {
     handleOauthRequest: handleOauthRequest
   };
 
-  console.log('registeredServices', registeredServices)
+  process.env.TRACE && console.log('registeredServices', registeredServices)
 };
 
 // For test cleanup.
@@ -57,6 +57,7 @@ OAuthTest.unregisterService = function (name) {
 
 
 OAuth.retrieveCredential = function(credentialToken, credentialSecret) {
+  process.env.TRACE && console.log('OAuth.retrieveCredential()')
   return OAuth._retrievePendingCredential(credentialToken, credentialSecret);
 };
 
@@ -160,14 +161,14 @@ var middleware = function (req, res, next) {
       return;
     }
 
-    console.log('middleware[registeredServices]', registeredServices)
+    process.env.TRACE && console.log('middleware[registeredServices]', registeredServices)
     var service = registeredServices[serviceName];
     // var service = ServiceConfiguration.configurations.findOne({ service: serviceName })
-    console.log('service', service);
+    process.env.TRACE && console.log('service', service);
 
     // Skip everything if there's no service set by the oauth middleware
     if (!service) 
-      throw new Error("Unexpected OAuth service " + serviceName);
+      throw new Error("Unexpected OAuth service " + serviceName + ".  This is usually caused by the OAuth config not being loaded from database into active memory on the server.  Try resyncing the configuration with Meteor.call('resyncConfiguration')");
 
     // Make sure we're configured
     ensureConfigured(serviceName);
@@ -186,7 +187,10 @@ var middleware = function (req, res, next) {
     // style the error or react to it in any way.
     if (req.query.state && err instanceof Error) {
       try { // catch any exceptions to avoid crashing runner
-        OAuth._storePendingCredential(OAuth._credentialTokenFromQuery(req.query), err);
+        var credentialTokenFromQuery = OAuth._credentialTokenFromQuery(req.query);
+        process.env.TRACE && console.log('credentialTokenFromQuery', credentialTokenFromQuery);
+
+        OAuth._storePendingCredential(credentialTokenFromQuery, err);
       } catch (err) {
         // Ignore the error and just give up. If we failed to store the
         // error, then the login will just fail with a generic error.

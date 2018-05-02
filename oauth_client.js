@@ -110,12 +110,12 @@ OAuth.getDataAfterRedirect = function () {
 //  credentialToken: our identifier for this login flow.
 //
 OAuth.launchLogin = function (options) {
-  console.log('OAuth.launchLogin', options);
+  process.env.TRACE && console.log('OAuth.launchLogin', options);
 
   if (! options.loginService)
     throw new Error('loginService required');
   if (options.loginStyle === 'popup') {
-    console.log('show popup...')
+    process.env.TRACE && console.log('show popup...')
     OAuth.showPopup(
       options.loginUrl,
       _.bind(options.credentialRequestCompleteCallback, null, options.credentialToken),

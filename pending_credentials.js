@@ -41,6 +41,7 @@ var _cleanupHandle = Meteor.setInterval(_cleanStaleResults, 60 * 1000);
 //   addition to the `key` to retrieve the credential
 //
 OAuth._storePendingCredential = function (key, credential, credentialSecret) {
+  process.env.TRACE && console.log('OAuth._storePendingCredential()', key, credential, credentialSecret)
   check(key, String);
   check(credentialSecret, Match.Optional(String));
 
@@ -60,6 +61,10 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
     credential: credential,
     credentialSecret: credentialSecret || null,
     createdAt: new Date()
+  }, function(error){
+    if(error){
+      process.env.TRACE && console.log('Auth._pendingCredentials.upsert().error', error)
+    }
   });
 };
 
@@ -70,12 +75,20 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
 // @param credentialSecret {string}
 //
 OAuth._retrievePendingCredential = function (key, credentialSecret) {
+  process.env.TRACE && console.log('OAuth._retrievePendingCredential()', key, credentialSecret)
   check(key, String);
 
-  var pendingCredential = OAuth._pendingCredentials.findOne({
-    key: key,
-    credentialSecret: credentialSecret || null
-  });
+  var query = {
+    key: key
+  }
+
+  if(credentialSecret){
+    query.credentialSecret = credentialSecret;
+  }
+
+  var pendingCredential = OAuth._pendingCredentials.findOne(query);
+  process.env.TRACE && console.log('pendingCredential', pendingCredential);
+
   if (pendingCredential) {
     OAuth._pendingCredentials.remove({ _id: pendingCredential._id });
     if (pendingCredential.credential.error)
