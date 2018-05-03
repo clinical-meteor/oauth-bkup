@@ -35,6 +35,9 @@ Package.onUse(function (api) {
   api.addFiles('oauth_server.js', 'server');
   api.addFiles('pending_credentials.js', 'server');
 
+  // api.addFiles('end_of_popup_response.js', 'client');
+  // api.addFiles('end_of_redirect_response.js', 'client');
+
   api.addAssets([
     'end_of_popup_response.html',
     'end_of_redirect_response.html'

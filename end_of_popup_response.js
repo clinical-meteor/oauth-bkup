@@ -15,10 +15,8 @@
       window.location.hash = credentialString;
     }
 
-    if (window.opener && window.opener.Package &&
-          window.opener.Package.oauth) {
-      window.opener.Package.oauth.OAuth._handleCredentialSecret(
-        credentialToken, credentialSecret);
+    if (window.opener && window.opener.Package && window.opener.Package.oauth) {
+      window.opener.Package.oauth.OAuth._handleCredentialSecret(credentialToken, credentialSecret);
     } else {
       try {
         localStorage[config.storagePrefix + credentialToken] = credentialSecret;
