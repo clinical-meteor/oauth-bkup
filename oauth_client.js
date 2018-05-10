@@ -6,6 +6,7 @@ var credentialSecrets = {};
 OAuth = {};
 
 OAuth.showPopup = function (url, callback, dimensions) {
+  process.env.DEBUG && console.log('Oauth.showPopup()', url)
   throw new Error("OAuth.showPopup must be implemented on this arch.");
 };
 

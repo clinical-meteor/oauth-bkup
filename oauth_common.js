@@ -1,7 +1,7 @@
 OAuth._storageTokenPrefix = "Meteor.oauth.credentialSecret-";
 
 OAuth._redirectUri = function (serviceName, config, params, absoluteUrlOptions) {
-  process.env.TRACE && console.log('OAuth._redirectUri()');
+  process.env.DEBUG && console.log('OAuth._redirectUri()');
   // XXX COMPAT WITH 0.9.0
   // The redirect URI used to have a "?close" query argument.  We
   // detect whether we need to be backwards compatible by checking for

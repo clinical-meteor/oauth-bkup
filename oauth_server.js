@@ -30,7 +30,7 @@ OAuth._requestHandlers = {};
 //     - `null` if the user declined to give permissions
 //
 OAuth.registerService = function (name, version, urls, handleOauthRequest) {
-  process.env.TRACE && console.log('OAuth.registerService()');
+  process.env.DEBUG && console.log('OAuth.registerService()');
 
   if (registeredServices[name]) 
     throw new Error("Already registered the " + name + " OAuth service");
@@ -57,7 +57,7 @@ OAuthTest.unregisterService = function (name) {
 
 
 OAuth.retrieveCredential = function(credentialToken, credentialSecret) {
-  process.env.TRACE && console.log('OAuth.retrieveCredential()')
+  process.env.DEBUG && console.log('OAuth.retrieveCredential()')
   return OAuth._retrievePendingCredential(credentialToken, credentialSecret);
 };
 
