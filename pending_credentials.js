@@ -41,7 +41,11 @@ var _cleanupHandle = Meteor.setInterval(_cleanStaleResults, 60 * 1000);
 //   addition to the `key` to retrieve the credential
 //
 OAuth._storePendingCredential = function (key, credential, credentialSecret) {
-  process.env.TRACE && console.log('OAuth._storePendingCredential()', key, credential, credentialSecret)
+  process.env.TRACE && console.log('OAuth._storePendingCredential()')
+  process.env.TRACE && console.log('OAuth._storePendingCredential().key', key)
+  process.env.TRACE && console.log('OAuth._storePendingCredential().credential', credential)
+  process.env.TRACE && console.log('OAuth._storePendingCredential().credentialSecret', credentialSecret)
+
   check(key, String);
   check(credentialSecret, Match.Optional(String));
 
