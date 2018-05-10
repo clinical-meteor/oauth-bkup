@@ -149,11 +149,12 @@ OAuth._checkRedirectUrlOrigin = function (redirectUrl) {
 
 // Listen to incoming OAuth http requests
 var middleware = function (req, res, next) {
+
   // Make sure to catch any exceptions because otherwise we'd crash
   // the runner
   try {
     var serviceName = oauthServiceName(req);
-    // console.log('middleware[serviceName]', serviceName)
+    process.env.TRACE && console.log('middleware[serviceName]', serviceName)
 
     if (!serviceName) {
       // not an oauth request. pass to next middleware.
@@ -164,7 +165,7 @@ var middleware = function (req, res, next) {
     process.env.TRACE && console.log('middleware[registeredServices]', registeredServices)
     var service = registeredServices[serviceName];
     // var service = ServiceConfiguration.configurations.findOne({ service: serviceName })
-    process.env.TRACE && console.log('service', service);
+    process.env.TRACE && console.log('middleware[service]', service);
 
     // Skip everything if there's no service set by the oauth middleware
     if (!service) 

@@ -55,23 +55,28 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
     credential = OAuth.sealSecret(credential);
   }
 
+  var newPendingCredential = {
+    key: key,
+    credential: credential,
+    credentialSecret: credentialSecret || null,
+    createdAt: new Date()
+  };
+
+  process.env.TRACE && console.log('OAuth._storePendingCredential().newPendingCredential')
+  
   // We do an upsert here instead of an insert in case the user happens
   // to somehow send the same `state` parameter twice during an OAuth
   // login; we don't want a duplicate key error.
   OAuth._pendingCredentials.upsert({
     key: key
-  }, {
-    key: key,
-    credential: credential,
-    credentialSecret: credentialSecret || null,
-    createdAt: new Date()
-  }, function(error){
+  }, newPendingCredential, function(error){
     if(error){
-      process.env.TRACE && console.log('Auth._pendingCredentials.upsert().error', error)
+      process.env.TRACE && console.log('OAuth._pendingCredentials.upsert().error', error)
     }
   });
-};
 
+  console.log('OAuth._pendingCredentials.find().fetch()', OAuth._pendingCredentials.find().fetch())
+};
 
 // Retrieves and removes a credential from the _pendingCredentials collection
 //
