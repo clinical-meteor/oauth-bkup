@@ -41,10 +41,11 @@ var _cleanupHandle = Meteor.setInterval(_cleanStaleResults, 60 * 1000);
 //   addition to the `key` to retrieve the credential
 //
 OAuth._storePendingCredential = function (key, credential, credentialSecret) {
-  process.env.TRACE && console.log('OAuth._storePendingCredential()')
-  process.env.TRACE && console.log('OAuth._storePendingCredential().key', key)
-  process.env.TRACE && console.log('OAuth._storePendingCredential().credential', credential)
-  process.env.TRACE && console.log('OAuth._storePendingCredential().credentialSecret', credentialSecret)
+  process.env.DEBUG && console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+  process.env.DEBUG && console.log('OAuth._storePendingCredential()')
+  process.env.DEBUG && console.log('OAuth._storePendingCredential().key', key)
+  process.env.DEBUG && console.log('OAuth._storePendingCredential().credential', credential)
+  process.env.DEBUG && console.log('OAuth._storePendingCredential().credentialSecret', credentialSecret)
 
   check(key, String);
   check(credentialSecret, Match.Optional(String));
@@ -62,7 +63,7 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
     createdAt: new Date()
   };
 
-  process.env.TRACE && console.log('OAuth._storePendingCredential().newPendingCredential')
+  process.env.DEBUG && console.log('OAuth._storePendingCredential().newPendingCredential', newPendingCredential)
   
   // We do an upsert here instead of an insert in case the user happens
   // to somehow send the same `state` parameter twice during an OAuth
@@ -71,7 +72,7 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
     key: key
   }, newPendingCredential, function(error){
     if(error){
-      process.env.TRACE && console.log('OAuth._pendingCredentials.upsert().error', error)
+      process.env.DEBUG && console.log('OAuth._pendingCredentials.upsert().error', error)
     }
   });
 
@@ -84,7 +85,7 @@ OAuth._storePendingCredential = function (key, credential, credentialSecret) {
 // @param credentialSecret {string}
 //
 OAuth._retrievePendingCredential = function (key, credentialSecret) {
-  process.env.TRACE && console.log('OAuth._retrievePendingCredential()', key, credentialSecret)
+  process.env.DEBUG && console.log('OAuth._retrievePendingCredential()', key, credentialSecret)
   check(key, String);
 
   var query = {
@@ -96,7 +97,7 @@ OAuth._retrievePendingCredential = function (key, credentialSecret) {
   }
 
   var pendingCredential = OAuth._pendingCredentials.findOne(query);
-  process.env.TRACE && console.log('pendingCredential', pendingCredential);
+  process.env.DEBUG && console.log('pendingCredential', pendingCredential);
 
   if (pendingCredential) {
     OAuth._pendingCredentials.remove({ _id: pendingCredential._id });

@@ -9,7 +9,9 @@
 // @param dimensions {optional Object(width, height)} The dimensions of
 //   the popup. If not passed defaults to something sane.
 OAuth.showPopup = function (url, callback, dimensions) {
-  process.env.TRACE && console.log('OAuth.showPopup()', url);
+  if(process.env.NODE_ENV === "test") {
+    console.log('OAuth.showPopup', url);
+  } 
   
   // default dimensions that worked well for facebook and google
   var popup = openCenteredPopup(
@@ -40,6 +42,11 @@ OAuth.showPopup = function (url, callback, dimensions) {
 };
 
 var openCenteredPopup = function(url, width, height) {
+  if(process.env.NODE_ENV === "test") {
+    console.log('OAuth.openCenteredPopup', url, width, height);
+  } 
+
+
   var screenX = typeof window.screenX !== 'undefined'
         ? window.screenX : window.screenLeft;
   var screenY = typeof window.screenY !== 'undefined'
