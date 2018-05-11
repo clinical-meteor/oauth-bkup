@@ -6,7 +6,7 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.use('meteor-platform');
+  api.use('meteor-platform@1.2.6');
 
   api.use('check@1.2.5');
   api.use('underscore@1.0.10');
@@ -18,7 +18,7 @@ Package.onUse(function (api) {
   api.use('reload@1.1.11', 'client');
   api.use('base64@1.0.10', 'client');
   api.use('ecmascript@0.9.0');
-  
+
   api.use([
     'service-configuration@1.0.11', 
     'logging@1.1.19'
