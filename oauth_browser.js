@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 // Browser specific code for the OAuth package.
 
 // Open a popup window, centered on the screen, and call a callback when it
@@ -9,9 +11,9 @@
 // @param dimensions {optional Object(width, height)} The dimensions of
 //   the popup. If not passed defaults to something sane.
 OAuth.showPopup = function (url, callback, dimensions) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.showPopup', url);
-  } 
+  }
   
   // default dimensions that worked well for facebook and google
   var popup = openCenteredPopup(
@@ -42,7 +44,7 @@ OAuth.showPopup = function (url, callback, dimensions) {
 };
 
 var openCenteredPopup = function(url, width, height) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.openCenteredPopup', url, width, height);
   } 
 

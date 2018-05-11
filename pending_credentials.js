@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 //
 // When an oauth request is made, Meteor receives oauth credentials
 // in one browser tab, and temporarily persists them while that

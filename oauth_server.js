@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 var url = Npm.require('url');
 
 OAuth = {};

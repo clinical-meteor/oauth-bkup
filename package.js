@@ -1,11 +1,13 @@
 Package.describe({
   name: 'clinical:oauth',
   summary: "Common code for OAuth-based services in the clinical setting.",
-  version: "1.2.15",
+  version: "1.2.17",
   git: 'https://github.com/clinical-meteor/oauth'
 });
 
 Package.onUse(function (api) {
+  api.use('meteor-platform');
+
   api.use('check@1.2.5');
   api.use('underscore@1.0.10');
 
@@ -15,7 +17,8 @@ Package.onUse(function (api) {
 
   api.use('reload@1.1.11', 'client');
   api.use('base64@1.0.10', 'client');
-
+  api.use('ecmascript@0.9.0');
+  
   api.use([
     'service-configuration@1.0.11', 
     'logging@1.1.19'
@@ -63,3 +66,7 @@ Package.onTest(function (api) {
 Cordova.depends({
   'cordova-plugin-inappbrowser': '1.7.1'
 });
+
+// Npm.depends({
+//   "lodash": "4.17.4"
+// });

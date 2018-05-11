@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 // credentialToken -> credentialSecret. You must provide both the
 // credentialToken and the credentialSecret to retrieve an access token from
 // the _pendingCredentials collection.
@@ -6,7 +8,7 @@ var credentialSecrets = {};
 OAuth = {};
 
 OAuth.showPopup = function (url, callback, dimensions) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.showPopup()', url)
   }  
 
@@ -17,7 +19,7 @@ OAuth.showPopup = function (url, callback, dimensions) {
 //
 //
 OAuth._loginStyle = function (service, config, options) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth._loginStyle', service, config, options)
   }  
 
@@ -46,7 +48,7 @@ OAuth._loginStyle = function (service, config, options) {
 };
 
 OAuth._stateParam = function (loginStyle, credentialToken, redirectUrl) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth._stateParam', redirectUrl)
   }  
 
@@ -71,7 +73,7 @@ OAuth._stateParam = function (loginStyle, credentialToken, redirectUrl) {
 // in the reload migration data.
 //
 OAuth.saveDataForRedirect = function (loginService, credentialToken) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.saveDataForRedirect', loginService)
   }  
 
@@ -90,7 +92,7 @@ OAuth.saveDataForRedirect = function (loginService, credentialToken) {
 // the login flow.
 //
 OAuth.getDataAfterRedirect = function () {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.getDataAfterRedirect')
   }  
 
@@ -129,14 +131,14 @@ OAuth.getDataAfterRedirect = function () {
 //  credentialToken: our identifier for this login flow.
 //
 OAuth.launchLogin = function (options) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.launchLogin', options);
   }  
 
   if (! options.loginService)
     throw new Error('loginService required');
   if (options.loginStyle === 'popup') {
-    if(process.env.NODE_ENV === "test") {
+    if(get(Meteor, 'settings.public.logging') === "debug"){
       console.log('show popup...')
     }  
     OAuth.showPopup(
@@ -154,7 +156,7 @@ OAuth.launchLogin = function (options) {
 // XXX COMPAT WITH 0.7.0.1
 // Private interface but probably used by many oauth clients in atmosphere.
 OAuth.initiateLogin = function (credentialToken, url, callback, dimensions) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth.initiateLogin', credentialToken, url)
   }  
 
@@ -168,7 +170,7 @@ OAuth.initiateLogin = function (credentialToken, url, callback, dimensions) {
 // Called by the popup when the OAuth flow is completed, right before
 // the popup closes.
 OAuth._handleCredentialSecret = function (credentialToken, secret) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth._handleCredentialSecret', credentialToken, secret)
   }  
   check(credentialToken, String);
@@ -183,7 +185,7 @@ OAuth._handleCredentialSecret = function (credentialToken, secret) {
 // Used by accounts-oauth, which needs both a credentialToken and the
 // corresponding to credential secret to call the `login` method over DDP.
 OAuth._retrieveCredentialSecret = function (credentialToken) {
-  if(process.env.NODE_ENV === "test") {
+  if(get(Meteor, 'settings.public.logging') === "debug"){
     console.log('OAuth._retrieveCredentialSecret', credentialToken)
   }  
 
