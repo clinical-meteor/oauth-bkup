@@ -23,6 +23,7 @@ OAuth.showPopup = function (url, callback, dimensions) {
   );
 
   var checkPopupOpen = setInterval(function() {
+
     try {
       // Fix for #328 - added a second test criteria (popup.closed === undefined)
       // to humour this Android quirk:
@@ -35,9 +36,12 @@ OAuth.showPopup = function (url, callback, dimensions) {
       // again in 100ms.
       return;
     }
-
     if (popupClosed) {
       clearInterval(checkPopupOpen);
+
+      if(get(Meteor, 'settings.public.logging') === "debug"){
+        console.log('OAuth.showPopup().setInterval.callback()');
+      } 
       callback();
     }
   }, 100);
