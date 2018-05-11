@@ -1,7 +1,7 @@
 Package.describe({
   name: 'clinical:oauth',
   summary: "Common code for OAuth-based services in the clinical setting.",
-  version: "1.2.13",
+  version: "1.2.14",
   git: 'https://github.com/clinical-meteor/oauth'
 });
 
@@ -34,9 +34,6 @@ Package.onUse(function (api) {
   api.addFiles('oauth_cordova.js', 'web.cordova');
   api.addFiles('oauth_server.js', 'server');
   api.addFiles('pending_credentials.js', 'server');
-
-  api.addFiles('end_of_popup_response.js', 'client');
-  api.addFiles('end_of_redirect_response.js', 'client');
 
   api.addAssets([
     'end_of_popup_response.html',
